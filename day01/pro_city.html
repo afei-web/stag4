@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        省份:
+        <select v-model="prov" @change="change">
+            <option v-for="p in provs" :value="p">{{p}}</option>
+        </select>
+        城市:
+        <select v-model="city">
+            <option v-for="c in cities[prov]" :value="c">{{c}}</option>
+        </select>
+    </div>
+
+
+    <script src="../vue.js"></script>
+
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                provs:['江苏','安徽','浙江','山东','黑龙江'],
+                cities:{
+                    "江苏":['南京','苏州','无锡','扬州','徐州'],
+                    "安徽":['芜湖','马鞍山','蚌埠','合肥','黄山'],
+                    "浙江":['杭州','宁波','温州','义乌','嘉兴'],
+                    "山东":['济南','青岛','淄博','烟台','潍坊'],
+                    "黑龙江":['哈尔滨','齐齐哈尔','鹤岗','大庆','佳木斯']
+                },
+                prov:'江苏',
+                city:'南京'
+            },
+            methods: {
+                change(){
+                    // 当省份发生变化时 城市的值 也跟着改变
+                    this.city = this.cities[this.prov][0]
+                }
+            }
+        })
+    </script>
+</body>
+</html>

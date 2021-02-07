@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .classA{
+            background: red;
+            color: aliceblue;
+            width: 100px;
+            height: 100px;
+        }
+        .classB{
+            border: 5px solid black;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>v-on绑定事件</h1>
+        <div @click="all">
+            <button a="re">-</button>
+                {{num+'度'}}
+                <span v-show="num>=25">夏天</span>
+                <span v-show="num>=5 && num<25">春秋天</span>
+                <span v-show="num<5">冬天</span>
+            <button a="add">+</button>
+        </div>
+        <h1>v-bind绑定属性</h1>
+        <div :class="cA"></div>
+        <div :class="cB"></div>
+        // 多个类名
+        <div :class="[cA,cB]"></div>
+        <div>
+            <a :href="address">百度一下</a>
+        </div>
+        <div>
+            <button @click="toggle">切换链接地址</button>
+            会变的a标签
+            <a :href="obj[idx].url">{{obj[idx].text}}</a>
+        </div>
+        <div>
+            <h1>v-model</h1>
+            <input type="text" v-model="msg">
+            <p>你输入的内容是: {{msg}}</p>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script src="../jq文件/jquery-1.9.1.min.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app", // 指定挂载点
+            // 声明绑定的数据/属性
+            data:{
+                num:0,
+                cA:'classA',
+                cB:'classB',
+                address:'https://www.baidu.com',
+                obj:[
+                    {url:"https://www.baidu.com",text:'百度一下'},
+                    {url:"https://www.163.com",text:'网易'},
+                ],
+                idx:1,
+                msg:'ooo'
+            },
+            methods: { 
+                all(e){
+                    let attr = $(e.target).attr('a')
+                    if(attr=='re'){
+                        this.num--
+                    }else if(attr=='add'){
+                        this.num++
+                    }
+                },
+                toggle(){
+                    this.idx = this.idx ? 0 : 1
+                }
+            },
+        })
+    </script>
+</body>
+</html>

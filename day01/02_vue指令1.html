@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <h1 v-text="msg"></h1>
+        <h1 v-html="msg"></h1>
+        <div>
+            你的成绩分数是: {{score}},等级是
+            <span v-if="score>=90">优秀</span>
+            <span v-else-if="score>=80">良好</span>
+            <span v-else-if="score>=70">中等</span>
+            <span v-else-if="score>=60">及格</span>
+            <span v-else>不及格</span>
+        </div>
+        <div v-show="show">这是v-show</div>
+        <h1>v-for</h1>
+        <ul>
+            <li v-for="fruit in fruits">{{fruit}}</li>
+        </ul>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'<div>这是Vue绑定的数据</div>',
+                score:0,
+                show:true,
+                fruits:['苹果','香蕉','凤梨','哈密瓜','水蜜桃','菠萝蜜','西瓜','桃子','猕猴桃']
+            }
+        })
+    </script>
+
+
+
+</body>
+</html>

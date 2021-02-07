@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>计算属性</h1>
+  <div id="app">
+    <button @click="jian">-</button>
+    <div>
+      {{ a }}的平方的结果是 {{ squareA }}
+    </div>
+    <div>
+      <!-- 当视图更新时,会重新执行aSquare方法,无论a的值有没有发生变化 -->
+      通过methods获取的平方值: {{ aSquare() }}
+    </div>
+    <button @click="add">+</button>
+    <div>
+      <button @click="add2">升温</button>
+      <button @click="jian2">降温</button>
+      <h4>当前温度: {{ temperature }}℃</h4>
+      <div>
+        建议穿衣: {{ clothes }}
+      </div>
+      <button @click="addb">测试b</button> {{b}}
+    </div>
+    <h1>例子</h1>
+    <table border='1' cellspacing=0 cellpadding=10>
+        <tr>
+            <th>名字</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+        </tr>
+        <tr v-for="f in cart">
+            <td>{{f.name}}</td>
+            <td>{{f.price}}</td>
+            <td>{{f.count}}</td>
+            <td>{{f.price*f.count}}</td>
+        </tr>
+        <tr>
+            <td>总计</td>
+            <td align="right" colspan="3">{{all}}</td>
+        </tr>
+    </table>
+    <div>
+        <!-- 多个依赖的计算属性 -->
+        {{result}}
+    </div>
+  </div>
+
+  <script src="../vue.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data:{
+        a: 10,
+        temperature: 20,
+        b: 1,
+        c:2,
+        cart:[
+            {name:"苹果",price:20,count:3},
+            {name:"香蕉",price:14,count:5},
+            {name:"菠萝",price:26,count:4},
+            {name:"樱桃",price:33,count:2}
+        ]
+      },
+      methods: {
+        aSquare(){
+          console.log("methods的aSquare执行了");
+          return this.a*this.a
+        },
+        addb(){
+          console.log("methods的addb方法")
+          this.b++
+        },
+        add2(){
+          this.temperature += 4;
+        },
+        jian2(){
+          this.temperature -= 4;
+        },
+        jian(){
+          this.a--
+        },
+        add(){
+          this.a++
+        }
+      },
+      // 计算属性
+      computed: {
+        squareA(){
+          // 依赖了b,当b发生变化时,会触发该计算属性重新执行
+          // console.log(this.b); 
+          // 如果没有依赖b,那么b发生变化,该计算属性不会重新执行
+          console.log("squareA执行了");
+          return this.a*this.a;
+        },
+        clothes(){
+          console.log("clothes执行了")
+          if(this.temperature>25) return "短袖";
+          if(this.temperature>5) return "长袖";
+          return "棉袄";
+        },
+        all(){
+            let all = 0
+            this.cart.forEach(val => {
+                all += val.price * val.count
+            });
+            return all
+        },
+        result(){
+            return this.a + this.b + this.c
+        }
+      }
+    })
+  </script>
+</body>
+</html>

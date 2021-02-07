@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>v-model的基本用法</h1>
+        <input type="text" v-model="msg">
+        {{msg}}
+        <h1>单选框</h1>
+        <input type="radio" name="sex" v-model="sex" value="男">男
+        <input type="radio" name="sex" v-model="sex" value="女">女
+        <div>
+            你的性别是: {{sex}}
+        </div>
+        <h1>多选框</h1>
+        <input type="checkbox" name="hobbies" v-model="hob" value="足球">足球
+        <input type="checkbox" name="hobbies" v-model="hob" value="篮球">篮球
+        <input type="checkbox" name="hobbies" v-model="hob" value="排球">排球
+        <input type="checkbox" name="hobbies" v-model="hob" value="乒乓球">乒乓球
+        <div>
+            你的爱好有: {{hob.toString()}}
+        </div>
+        <div>下拉菜单</div>
+        <select v-model="fruit">
+            <option v-for="f in fruits" :value="f.name">{{f.name}}</option>
+        </select>
+        <div>
+            你喜欢的水果是: {{fruit}}
+        </div>
+        <h1>文本域</h1>
+        <textarea cols="30" rows="10" v-model="text">
+            
+        </textarea>
+        <div>
+            你输入的内容是: {{text}}
+        </div>
+    </div>
+
+    <script src="../vue.js"></script>
+    <script src="../jq文件/jquery-1.9.1.min.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                msg:'',
+                sex:'男',
+                hob:[],
+                fruits : [
+                    {name:'苹果',price:'3',amount:"4"},
+                    {name:'香蕉',price:'4',amount:"3"},
+                    {name:'菠萝',price:'5',amount:"4"},
+                    {name:'樱桃',price:'6',amount:"2"},
+                    {name:'西瓜',price:'2',amount:"10"}
+                ],
+                fruit:'',
+                text:''
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+
+</body>
+</html>

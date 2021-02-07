@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>watch监听</h1>
+    <div id="app">
+        <div>
+            {{"num: "+num}}
+            <button @click="add">增加</button>
+        </div>
+        <div>
+            <button @click="re2">-</button>
+            <p>当前温度:{{temperature}}</p>
+            <button @click="add2">+</button>
+            <p>穿衣建议:{{suggest}}</p>
+        </div>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                num:1,
+                temperature:20,
+                suggest:"长袖"
+            },
+            methods: {
+                add(){
+                    this.num++
+                },
+                re2(){
+                    this.temperature-=4
+                },
+                add2(){
+                    this.temperature+=4
+                }
+            },
+            watch:{
+                //监听num数字的变化
+                num(newVal,oldVal){
+                    // newVal为变化后的数据 oldVal是变化前的数据
+                    console.log(newVal+'/'+oldVal);
+                    if(newVal>=5) this.num=1
+                },
+                temperature(newVal){
+                    if(newVal>=25) this.suggest='短袖'
+                    if(newVal>=10&&newVal<25) this.suggest='长袖'
+                    if(newVal<10) this.suggest='棉袄'
+                } 
+            },
+        })
+    </script>
+</body>
+</html>
